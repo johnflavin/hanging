@@ -1,6 +1,73 @@
 Hanging
 John Flavin
 
-This solves words given to you in Hangman / Hanging with Friends.
+This finds the possible words given some sequence of letters according to the rules of Hanging with Friends.
 
-I don't really remember how it works, the code isn't commented, and I don't even know the usage. So I'll figure those things out and revise this after the initial commit.
+USAGE
+On the command line, type 'python hanging.py [arg1] [optional arg2]'
+When guessing a word:
+	arg1: The string you're trying to guess. Your known letters should be typed in, and unknown letters should be periods (.)
+	arg2: Letters you have already guessed which are wrong, separated by spaces
+
+	Program finds all the possible words, tells you which letter(s) is (are) in the most words, and prints all the possible words (if there are fewer than 200).
+
+	Example: 
+	Say I send you the word 'BUTT'. The game will spot you the 'U'. 
+	You type in 'python hanging.py .u..'
+	The program tells you that the letter in the most words is 'S'. You guess that in the game; it is wrong. 
+	You type in 'python hanging.py .u.. s'
+	The program tells you that the letter in the most words is 'R'. You guess that in the game; it is wrong.
+	You type 'python hanging.py .u.. s r'
+	Now there are two most common letters: 'L' and 'N'. You choose to try 'N'. It is wrong. Then you try 'L'. Also wrong. (It turns out that 'BUTT' is a pretty good word.)
+	You type 'python hanging.py .u.. s r n l'
+	The program tells you that the letter in the most words is 'M'.
+	You think "This is stupid. I'm going to choose a different letter." You pick 'T' in the game. It is correct.
+	You type 'python hanging.py .utt s r n l'
+	You see the list of all the words and you make your choice.
+
+When finding a word for your opponent:
+	arg1: The pool of 12 letters given to you by the game, from which you must make your word
+	arg2: Any letters in the pool of 12 that you want to guarantee are in the words you see (separated by spaces)
+
+	Program finds all words that can be made from your letters (optionally incuding only those with the letter(s) you want) and prints them.
+
+	Example: 
+	The game gives me the pool of letters 'ABCEDFGHIJKL'. I go to the command line and type 'python hanging.py abcdefghijkl'. I see the output 
+		8 letter words:
+		HIJACKED 
+		7 letter words:
+		BECHALK BIGHEAD BLACKED CHALKED DIEBACK FILCHED FLACKED FLICKED HACKLED HIDABLE JACKLEG 
+		6 letter words:
+		AFIELD BACHED BACKED BAILED BALKED BEFLAG BEGLAD BEHALF BIFACE BILGED BILKED BLEACH 
+		CABLED CALKED CHAFED CHIELD CHILDE FABLED FACILE FAILED FECIAL FICKLE FLAKED GABLED 
+		HABILE HACKED HACKIE HACKLE HAILED HALIDE HELIAC HIJACK JACKED JAILED KEBLAH KHALIF 
+		KIBLAH LACKED LICKED 
+		5 letter words:
+		ABIDE ACHED AGILE AILED ALCID ALGID ALIKE BADGE BAGEL BAKED BALED BEACH BELCH BELGA BIELD 
+		BIKED BILGE BLACK BLADE BLEAK CABLE CADGE CAGED CAKED CALIF CEBID CEIBA CHAFE CHALK CHELA 
+		CHIDE CHIEF CHIEL CHILD CHILE CLADE DECAF DECAL FABLE FACED FADGE FAKED FECAL FELID FICHE 
+		FIDGE FIELD FILCH FILED FJELD FLACK FLAKE FLECK FLICK FLIED GABLE GELID GIBED GLACE GLADE 
+		GLEBA GLIDE HACEK HADJI HALED HALID HIKED IDEAL ILEAC JEHAD JIBED JIHAD KALIF KHADI KHEDA 
+		KIBLA LACED LAICH LAIGH LAKED LEACH LIKED 
+		4 letter words:
+		ABED ABLE ACED ACHE ACID AGED AIDE ALEC ALEF ALIF BACH BACK BADE BAIL BAKE BALD BALE BALK 
+		BEAD BEAK BECK BICE BIDE BIKE BILE BILK BLAE BLAH BLED CADE CADI CAFE CAGE CAID CAKE CALF 
+		CALK CEDI CEIL CHAD CHEF CHIA CHID CLAD CLAG CLEF DACE DAHL DALE DEAF DEAL DECK DEFI DEIL 
+		DELF DELI DHAK DHAL DIAL DICE DICK DIEL DIKE EACH EGAD EGAL ELHI FACE FADE FAIL FAKE FEAL 
+		FECK FICE FILA FILE FLAB FLAG FLAK FLEA FLED FLIC GADI GAED GALE GECK GELD GIBE GIED GILD 
+		GLAD GLED GLIA GLIB HACK HADE HADJ HAED HAIK HAIL HAJI HAKE HALE HALF HEAD HEAL HECK HEIL 
+		HELD HICK HIDE HIED HIKE HILA ICED IDEA IDLE ILEA ILKA JACK JADE JAIL JAKE JIBE KADI KAIF 
+		KAIL KALE KHAF KIBE KIEF LACE LACK LADE LAIC LAID LAKE LAKH LEAD LEAF LEAK LECH LICE LICH 
+		LICK LIED LIEF LIFE LIKE 
+
+	I decide that I want a 'J' to be in my word. I type 'python hanging.py abcdefghijkl j' and see
+		8 letter words:
+		HIJACKED 
+		7 letter words:
+		JACKLEG 
+		6 letter words:
+		HIJACK JACKED JAILED 
+		5 letter words:
+		FJELD HADJI JEHAD JIBED JIHAD 
+		4 letter words:
+		HADJ HAJI JACK JADE JAIL JAKE JIBE 
