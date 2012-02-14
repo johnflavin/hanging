@@ -17,9 +17,9 @@ def print_words(word_list,word_length):
 	remainder = num_words % words_per_line
 
 	for line in range(lines):
-		print ' '.join( word_list[words_per_line*line : words_per_line*(line +1)] )
+		print(' '.join( word_list[words_per_line*line : words_per_line*(line +1)] ))
 	if remainder > 0:
-		print ' '.join( word_list[-remainder:] )
+		print(' '.join( word_list[-remainder:] ))
 
 
 if '.' in target:
@@ -43,7 +43,7 @@ if '.' in target:
 
 	#List of all words in the dictionary that are the same length as target
 	fulldict = [fulldictstring[ (wordlen+1)*i : (wordlen+1)*i+wordlen ] \
-			for i in range(len(fulldictstring)/(wordlen+1)+1)]
+			for i in range(len(fulldictstring)/(wordlen+1)+1)]					# PYTHON 3: TypeError: 'float' object cannot be interpreted as an integer
 	#Keep only those words with the target letters in proper spaces
 	filterdict = filter(lambda word: all( [letterpos[i][1]==word[letterpos[i][0]] \
 			for i in range(len(letterpos)) ]),fulldict)
@@ -77,9 +77,9 @@ if '.' in target:
 				lettersbyword[i] == maxletternum]
 	
 	if len(maxletterlist)>1:
-		print 'Letters in most words: '+' '.join(maxletterlist)
+		print('Letters in most words: '+' '.join(maxletterlist))
 	else:
-		print 'Letter in most words: '+maxletterlist[0]
+		print('Letter in most words: '+maxletterlist[0])
 
 	# Print all the valid states (if there are fewer than 200)
 	if len(filterdict)>200:
@@ -116,10 +116,10 @@ else:
 					filterdict)
 
 		# Printing the words
-		print '{} letter words:'.format(x)
+		print('{} letter words:'.format(x))
 
 		num_words = len(filterdict)
 		if num_words == 0:
-			print '----'
+			print('----')
 		else:
 			print_words(filterdict,x)
