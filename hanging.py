@@ -10,11 +10,11 @@ char_per_line = 100
 def print_words(word_list,word_length):
 	num_words = len(word_list)
 	#words/line = (chars/line) / (chars/word including a space)
-	words_per_line = char_per_line/(word_length+1)
-	#lines: number full char_per_line-character lines = (number words) / (words/line)
-	lines = num_words/words_per_line
+	words_per_line = int(char_per_line/(word_length+1))
 	#remainder: number extra words = (number words) mod (words/line)
 	remainder = num_words % words_per_line
+	#lines: number full char_per_line-character lines = (number words) / (words/line)
+	lines = int( num_words/words_per_line )
 
 	for line in range(lines):
 		print(' '.join( word_list[words_per_line*line : words_per_line*(line +1)] ))
@@ -43,20 +43,20 @@ if '.' in target:
 
 	#List of all words in the dictionary that are the same length as target
 	fulldict = [fulldictstring[ (wordlen+1)*i : (wordlen+1)*i+wordlen ] \
-			for i in range(len(fulldictstring)/(wordlen+1)+1)]					# PYTHON 3: TypeError: 'float' object cannot be interpreted as an integer
+			for i in range(int(len(fulldictstring)/(wordlen+1))+1)]					# PYTHON 3: TypeError: 'float' object cannot be interpreted as an integer
 	#Keep only those words with the target letters in proper spaces
-	filterdict = filter(lambda word: all( [letterpos[i][1]==word[letterpos[i][0]] \
-			for i in range(len(letterpos)) ]),fulldict)
+	filterdict = list(filter(lambda word: all( [letterpos[i][1]==word[letterpos[i][0]] \
+				for i in range(len(letterpos)) ]),fulldict))
 	#Keep only those words with none of the already guessed wrong letters
-	filterdict = filter(lambda word: all([l not in word for l in wronglets]), \
-			filterdict)
+	filterdict = list(filter(lambda word: all([l not in word for l in wronglets]), \
+				filterdict))
 	#Keep only those words with correct letters ONLY in correct spaces, nowhere else
-	filterdict = filter(lambda word: all([target.count(l)==word.count(l) for l in \
-			set(zip(*letterpos)[1]) ]),filterdict)
+	filterdict = list(filter(lambda word: all([target.count(l)==word.count(l) for l in \
+				set(zip(*letterpos)[1]) ]),filterdict))
 	#Keep only words with no vowels beyond last known vowel (which is always given)
-	filterdict = filter(lambda word: \
-			all([word[i] not in 'AEIOU' for i in range(last_vowel_pos+1,len(word))]),\
-			filterdict)
+	filterdict = list(filter(lambda word: \
+				all([word[i] not in 'AEIOU' for i in range(last_vowel_pos+1,len(word))]),\
+				filterdict))
 
 	# filterdict now holds only valid words. We must find the most common letter.
 	# We start by creating an array to hold a count of how many words contain 
@@ -65,8 +65,8 @@ if '.' in target:
 		sys.exit("You've eliminated all valid words!")
 	lettersbyword = [0]*26
 	for word in filterdict:
-		nontargetletters = filter(lambda l: l not in zip(*letterpos)[1], \
-				set(word))
+		nontargetletters = list(filter(lambda l: l not in zip(*letterpos)[1], \
+						set(word)))
 		for letter in nontargetletters:
 			lettersbyword[upperc.index(letter)]+=1
 
@@ -83,7 +83,7 @@ if '.' in target:
 
 	# Print all the valid states (if there are fewer than 200)
 	if len(filterdict)>200:
-		sys.exit('{} words fit'.format(num_words))
+		sys.exit('{0} words fit'.format(num_words))
 	else:
 		print_words(filterdict,wordlen)
 else:
@@ -101,22 +101,22 @@ else:
 		
 		#Full dictionary of words of length x
 		fulldict = [fulldictstr[(x+1)*j:(x+1)*j+x] \
-				for j in range(len(fulldictstr)/(x+1)+1)]
+				for j in range(int(len(fulldictstr)/(x+1))+1)]
 
 		#Filter out words that have any non-target letters
-		filterdict = filter(lambda word: \
-				all( [word.count(l)<=target.count(l)\
-				for l in set(word)] ), \
-				fulldict)
+		filterdict = list(filter(lambda word: \
+						all( [word.count(l)<=target.count(l)\
+						for l in set(word)] ), \
+						fulldict))
 
 		#Filter out words that don't have all the letters we want
 		if len(wants)>0:
-			filterdict = filter(lambda word: \
-					all( [l in word for l in wants]),\
-					filterdict)
+			filterdict = list(filter(lambda word: \
+								all( [l in word for l in wants]),\
+								filterdict))
 
 		# Printing the words
-		print('{} letter words:'.format(x))
+		print('{0} letter words:'.format(x))
 
 		num_words = len(filterdict)
 		if num_words == 0:
