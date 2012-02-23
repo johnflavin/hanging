@@ -1,14 +1,14 @@
-Hanging (Requires Python 2.7 or greater)
-John Flavin
+Hanging --- John Flavin
 
-This finds the possible words given some sequence of letters according to the rules of Hanging with Friends.
+Finds the possible words given some sequence of letters according to the rules of Hanging with Friends.
 
 USAGE
 On the command line, type 'python hanging.py [arg1] [optional arg2]'
+arg1 and arg2 will be different depending on whether you are guessing a word or making a word for your opponent.
 
 CASE 1: GUESSING A WORD
-arg1: The string you're trying to guess. Your known letters should be typed in, and unknown letters should be periods (.)
-arg2: Letters you have already guessed which are wrong, separated by spaces
+arg1: The string you're trying to guess. Example below.
+arg2: Letters you have already guessed which are wrong. Separated by spaces
 
 Program finds all the possible words, tells you which letter(s) is (are) in the most words, and prints all the possible words (if there are fewer than 200).
 
@@ -31,7 +31,7 @@ You pick 'T' in the game. It is correct.
 You type 'python hanging.py .utt s r n l'
 You see the list of all the words and you make your choice.
 
-CASE 2: MAKING A WORD FOR YOUR OPPONENT
+CASE 2: MAKING A WORD
 arg1: The pool of 12 letters given to you by the game, from which you must make your word
 arg2: Any letters in the pool of 12 that you want to guarantee are in the words you see (separated by spaces)
 
